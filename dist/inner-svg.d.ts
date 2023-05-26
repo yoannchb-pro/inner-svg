@@ -1,8 +1,21 @@
+type LoadFn = (injection: InjectSVG) => any;
 declare class InjectSVG {
     element: HTMLElement;
     path: string;
     svg: SVGElement;
+    private firstLoadFn;
+    private eachLoadFn;
     constructor(element: HTMLElement, path: string);
+    /**
+     * Called when the first svg is injected (not when the path change)
+     * @param fn
+     */
+    onFirstLoad(fn: LoadFn): void;
+    /**
+     * Called every time a new svg is injected (like when the path change)
+     * @param fn
+     */
+    onEachLoad(fn: LoadFn): void;
     /**
      * Inject the svg
      */
@@ -20,7 +33,7 @@ declare class InjectSVG {
     /**
      * Set the same attributes to the svg from the element
      */
-    private setSameAttributes;
+    copySameAttributesFromOriginalElement(): void;
     /**
      * Init the path of the svg
      * @param path
@@ -38,7 +51,7 @@ declare class InjectSVG {
     destruct(): void;
 }
 /**
- * Inject an svg into the dom
+ * Inject a svg into the dom
  * @param element
  * @param path
  * @returns

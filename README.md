@@ -27,7 +27,7 @@ import "inner-svg-ts";
 ### CDN
 
 ```html
-<script src="https://unpkg.com/inner-svg-ts@1.0.0/dist/inner-svg.js"></script>
+<script src="https://unpkg.com/inner-svg-ts@1.0.1/dist/inner-svg.js"></script>
 ```
 
 ## Demo
@@ -46,6 +46,7 @@ The path can be relative or absolut for example `./assets/discord.svg` and `/sta
 <i
   id="originalElement"
   class="fill-red-500"
+  title="some svg"
   data-i-svg="./assets/discord.svg"
 ></i>
 ```
@@ -53,7 +54,7 @@ The path can be relative or absolut for example `./assets/discord.svg` and `/sta
 Will inject the svg into the current page with all the attributes derived from the original element (The id is not transfered to the svg)
 
 ```html
-<svg class="fill-red-500">...</svg>
+<svg title="some svg" class="fill-red-500">...</svg>
 ```
 
 ### In javascript
@@ -81,8 +82,25 @@ Update the path of the svg
 injection.updatePath("./assets/hearth.svg");
 ```
 
+Update attributes from the original element
+
+```js
+injection.copySameAttributesFromOriginalElement();
+```
+
 Remove the svg
 
 ```js
 injection.desctruct();
+```
+
+Handle svg loaded
+
+```js
+function callback(injection) {
+  console.log(injection.svg);
+}
+
+injection.onFirstLoad(callback); // will not be call if the path change
+injection.onEachLoad(callback);
 ```

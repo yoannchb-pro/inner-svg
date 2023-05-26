@@ -21,7 +21,10 @@ function initObserver() {
           addedNodes.push(element);
         } else {
           const path = element.dataset.iSvg;
-          InjectedElements[injectedIndex].instance.updatePath(path);
+          const injection = InjectedElements[injectedIndex].instance;
+          if (mutation.attributeName.includes("data-i-svg"))
+            injection.updatePath(path);
+          else injection.copySameAttributesFromOriginalElement();
         }
       }
 

@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 /**
- * Inject an svg into the dom
+ * Inject a svg into the dom
  * @param element
  * @param path
  * @returns

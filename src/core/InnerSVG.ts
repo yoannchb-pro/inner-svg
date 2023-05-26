@@ -2,8 +2,12 @@ import { findInjectedElementIndex } from "utils";
 
 const InjectedElements: { element: HTMLElement; instance: InjectSVG }[] = [];
 
+type LoadFn = (injection: InjectSVG) => any;
+
 class InjectSVG {
   public svg: SVGElement;
+  private firstLoadFn: LoadFn;
+  private eachLoadFn: LoadFn;
 
   constructor(public element: HTMLElement, public path: string) {
     InjectedElements.push({ element, instance: this });
@@ -12,14 +16,37 @@ class InjectSVG {
   }
 
   /**
+   * Called when the first svg is injected (not when the path change)
+   * @param fn
+   */
+  onFirstLoad(fn: LoadFn) {
+    this.firstLoadFn = fn;
+  }
+
+  /**
+   * Called every time a new svg is injected (like when the path change)
+   * @param fn
+   */
+  onEachLoad(fn: LoadFn) {
+    this.eachLoadFn = fn;
+  }
+
+  /**
    * Inject the svg
    */
   private async init() {
-    if (this.svg) this.svg.remove();
+    let firstLoad = true;
+    if (this.svg) {
+      firstLoad = false;
+      this.svg.remove();
+    }
     await this.loadSVG();
-    this.setSameAttributes();
+    this.copySameAttributesFromOriginalElement();
     this.element.style.display = "none";
     this.element.parentNode.insertBefore(this.svg, this.element);
+
+    if (firstLoad && this.firstLoadFn) this.firstLoadFn(this);
+    if (this.eachLoadFn) this.eachLoadFn(this);
   }
 
   /**
@@ -49,12 +76,18 @@ class InjectSVG {
   /**
    * Set the same attributes to the svg from the element
    */
-  private setSameAttributes() {
+  copySameAttributesFromOriginalElement() {
     for (const attr of this.element.attributes) {
       if (attr.name === "data-i-svg" || attr.name === "id") continue;
+      if (attr.name === "style") {
+        this.svg.setAttribute(
+          attr.name,
+          attr.value.replace(/display\:\s*?none\;?/gi, "")
+        );
+        continue;
+      }
       this.svg.setAttribute(attr.name, attr.value);
     }
-    if (this.element.style.display === "none") this.svg.style.display = "";
   }
 
   /**
