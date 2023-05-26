@@ -8,11 +8,23 @@ Inject svg into your html with only one attribute or with javascript
 
 ## Installation
 
+### Node
+
 ```
 $ npm i inner-svg-ts
 ```
 
-or from the cdn
+And then
+
+```js
+const innerSVG = require("inner-svg-ts");
+import innerSVG from "inner-svg-ts";
+
+//or if you want only to work with attributes for react, angular, vuejs ...
+import "inner-svg-ts";
+```
+
+### CDN
 
 ```html
 <script src="https://unpkg.com/inner-svg-ts@1.0.0/dist/inner-svg.js"></script>
@@ -27,6 +39,8 @@ or from the cdn
 ### With attribute
 
 > NOTE: You can modify as you want the attribute, the svg will automatically update. innerSVG also detect when a new element is write into the page or removed from the page.
+
+The path can be relative or absolut for example `./assets/discord.svg` and `/static/discord.svg` will both work
 
 ```html
 <i
