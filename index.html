@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>innerSVG | Inject svg into the current page</title>
+    <script src="./dist/inner-svg.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/png" href="./assets/favicon.png" />
+  </head>
+  <body>
+    <header>
+      <h1>InnerSVG</h1>
+      <a href="https://github.com/yoannchb-pro/inner-svg" target="_blank"
+        ><img src="./assets/github-icon.jpg" alt="Github icon"
+      /></a>
+    </header>
+    <main>
+      <h2 style="text-align: center">
+        Inject svg with attributes or javascript into the current page
+      </h2>
+      <section>
+        <div class="view">
+          <i id="svg" class="fill-blue" data-i-svg="./assets/first.svg"></i>
+        </div>
+        <div class="live-editor">
+          <select id="pathSelector">
+            <option value="./assets/first.svg" selected>first.svg</option>
+            <option value="./assets/hearth.svg">hearth.svg</option>
+          </select>
+          <div class="colors">
+            <p>Fill color:</p>
+            <div class="color" id="color-blue" data-color="fill-blue"></div>
+            <div class="color" id="color-white" data-color="fill-white"></div>
+          </div>
+        </div>
+      </section>
+      <section class="code-preview">
+        <code id="code"></code>
+      </section>
+    </main>
+  </body>
+  <script>
+    const select = document.querySelector("#pathSelector");
+    const colors = document.querySelectorAll(".color");
+    const svg = document.querySelector("#svg");
+
+    const code = document.querySelector("#code");
+
+    select.addEventListener("change", function () {
+      const selectedOption = select.selectedOptions[0];
+      const path = selectedOption.value;
+      svg.setAttribute("data-i-svg", path);
+      generateCode();
+    });
+
+    for (const color of colors) {
+      color.addEventListener("click", function () {
+        svg.className = color.dataset.color;
+        generateCode();
+      });
+    }
+
+    function generateCode() {
+      const html = svg.outerHTML.replace(/style=".+?"/gi, "");
+      code.textContent = html;
+    }
+
+    generateCode();
+  </script>
+</html>

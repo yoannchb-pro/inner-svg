@@ -1,0 +1,44 @@
+{
+  "name": "inner-svg",
+  "version": "1.0.0",
+  "description": "Inject svg into your html with only one attribute or with javascript",
+  "main": "./dist/inner-svg.js",
+  "types": "./dist/inner-svg.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md",
+    "tsconfig.json",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yoannchb-pro/inner-svg.git"
+  },
+  "keywords": [
+    "svg",
+    "svg-injection",
+    "injection",
+    "typescript",
+    "html",
+    "vuejs",
+    "react",
+    "angular"
+  ],
+  "author": "yoannchb",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yoannchb-pro/inner-svg/issues"
+  },
+  "homepage": "https://github.com/yoannchb-pro/inner-svg#readme",
+  "devDependencies": {
+    "@rollup/plugin-terser": "^0.4.3",
+    "rollup": "^3.23.0",
+    "rollup-plugin-ts": "^3.2.0",
+    "typescript": "^5.0.4"
+  }
+}
