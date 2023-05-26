@@ -1,5 +1,5 @@
 {
-  "name": "inner-svg",
+  "name": "inner-svg-ts",
   "version": "1.0.0",
   "description": "Inject svg into your html with only one attribute or with javascript",
   "main": "./dist/inner-svg.js",

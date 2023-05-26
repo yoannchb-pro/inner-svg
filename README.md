@@ -9,13 +9,13 @@ Inject svg into your html with only one attribute or with javascript
 ## Installation
 
 ```
-$ npm i inner-svg
+$ npm i inner-svg-ts
 ```
 
 or from the cdn
 
 ```html
-<script src="https://unpkg.com/inner-svg@1.0.0/dist/inner-svg.js"></script>
+<script src="https://unpkg.com/inner-svg-ts@1.0.0/dist/inner-svg.js"></script>
 ```
 
 ## Demo
